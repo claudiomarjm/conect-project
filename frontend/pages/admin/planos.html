@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Admin — Planos</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,400&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../../css/style.css" />
+  <link rel="stylesheet" href="../../css/admin.css" />
+</head>
+<body>
+  <div class="admin-layout">
+    <nav class="admin-nav">
+      <h2>Conecta.Net</h2>
+      <a href="usuarios.html">Usuários</a>
+      <a href="planos.html" class="ativo">Planos</a>
+      <a href="#" class="sair" onclick="sair()">↩ Sair</a>
+    </nav>
+    <main class="admin-main">
+      <h2>Gerenciar Planos</h2>
+
+      <div class="card grande">
+        <h3 id="tituloForm">Novo Plano</h3>
+        <input type="hidden" id="planoId" />
+        <div class="grid">
+          <div><label>Nome</label><input type="text" id="fNome" placeholder="100 Mega" /></div>
+          <div><label>Velocidade</label><input type="text" id="fVelocidade" placeholder="100 Mbps" /></div>
+          <div><label>Preço (R$)</label><input type="number" id="fPreco" step="0.01" placeholder="79.90" /></div>
+          <div class="coluna-dupla"><label>Descrição</label><input type="text" id="fDescricao" placeholder="Ideal para..." /></div>
+        </div>
+        <div class="botoes">
+          <button class="btn-secundario" onclick="limparForm()">Cancelar</button>
+          <button onclick="salvarPlano()">Salvar</button>
+        </div>
+      </div>
+
+      <div class="card grande" style="margin-top:24px">
+        <h3>Planos Cadastrados</h3>
+        <table class="admin-table" id="tabelaPlanos">
+          <thead><tr><th>Nome</th><th>Velocidade</th><th>Preço</th><th>Ações</th></tr></thead>
+          <tbody></tbody>
+        </table>
+        <div id="paginacao" class="paginacao"></div>
+      </div>
+    </main>
+  </div>
+  <script src="../../js/auth.js"></script>
+  <script src="../../js/admin/planos.js"></script>
+</body>
+</html>

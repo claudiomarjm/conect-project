@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Conecta.Net — Home</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,400&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../css/style.css" />
+</head>
+<body>
+  <div class="container-form">
+    <div class="card grande centralizado">
+      <h2>Olá, <span id="nomeUsuario"></span>!</h2>
+
+      <div id="semPlano" style="display:none">
+        <p style="margin-bottom: 10px;">Você ainda não tem um plano contratado.</p>
+        <button onclick="window.location.href='planos.html'">Ver planos disponíveis</button>
+      </div>
+
+      <div id="comPlano" style="display:none">
+        <p class="agradecimento">Seu plano ativo:</p>
+        <div class="resumo">
+          <p><strong>Plano:</strong> <span id="planoNome"></span></p>
+          <p><strong>Velocidade:</strong> <span id="planoVelocidade"></span></p>
+          <p><strong>Valor:</strong> R$ <span id="planoPreco"></span>/mês</p>
+          <p><strong>Descrição:</strong> <span id="planoDescricao"></span></p>
+        </div>
+        <button onclick="window.location.href='planos.html'">Trocar plano</button>
+      </div>
+
+      <div class="botoes botoes-centro" style="margin-top:24px">
+        <button class="btn-secundario" onclick="sair()">Sair</button>
+      </div>
+    </div>
+  </div>
+  <script src="../js/auth.js"></script>
+  <script src="../js/home.js"></script>
+</body>
+</html>

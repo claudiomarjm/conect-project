@@ -1,0 +1,293 @@
+{
+  "info": {
+    "name": "Conecta.Net API",
+    "_postman_id": "9f1c2b6a-8b3a-4f2e-9c1a-123456789abc",
+    "description": "Collection completa da API Conecta.Net",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    { "key": "base_url", "value": "http://localhost:3000" },
+    { "key": "token", "value": "" },
+    { "key": "admin_token", "value": "" }
+  ],
+  "item": [
+    {
+      "name": "Auth",
+      "item": [
+        {
+          "name": "Login Cliente",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{ \"cpf\": \"12345678900\", \"senha\": \"123456\" }"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/auth/login",
+              "host": ["{{base_url}}"],
+              "path": ["api", "auth", "login"]
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.environment.set('token', pm.response.json().token);"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Login Admin",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{ \"cpf\": \"admin\", \"senha\": \"123456\" }"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/auth/admin-login",
+              "host": ["{{base_url}}"],
+              "path": ["api", "auth", "admin-login"]
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.environment.set('admin_token', pm.response.json().token);"
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Usuarios",
+      "item": [
+        {
+          "name": "Cadastrar Usuario",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{ \"nome\": \"João\", \"cpf\": \"12345678900\", \"telefone\": \"65999999999\", \"cidade\": \"Cuiabá\", \"setor\": \"Centro\", \"cep\": \"78000000\", \"senha\": \"123456\" }"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/users",
+              "host": ["{{base_url}}"],
+              "path": ["api", "users"]
+            }
+          }
+        },
+        {
+          "name": "Usuario Logado",
+          "request": {
+            "method": "GET",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{token}}" }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/users/me",
+              "host": ["{{base_url}}"],
+              "path": ["api", "users", "me"]
+            }
+          }
+        },
+        {
+          "name": "Vincular Plano",
+          "request": {
+            "method": "PUT",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" },
+              { "key": "Authorization", "value": "Bearer {{token}}" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{ \"plano_id\": 1 }"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/users/me/plan",
+              "host": ["{{base_url}}"],
+              "path": ["api", "users", "me", "plan"]
+            }
+          }
+        },
+        {
+          "name": "Listar Usuarios (admin)",
+          "request": {
+            "method": "GET",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{admin_token}}" }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/users?page=1&limit=10",
+              "host": ["{{base_url}}"],
+              "path": ["api", "users"],
+              "query": [
+                { "key": "page", "value": "1" },
+                { "key": "limit", "value": "10" }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Editar Usuario (admin)",
+          "request": {
+            "method": "PUT",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" },
+              { "key": "Authorization", "value": "Bearer {{admin_token}}" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{ \"nome\": \"Novo Nome\" }"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/users/1",
+              "host": ["{{base_url}}"],
+              "path": ["api", "users", "1"]
+            }
+          }
+        },
+        {
+          "name": "Alterar Plano Usuario (admin)",
+          "request": {
+            "method": "PUT",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" },
+              { "key": "Authorization", "value": "Bearer {{admin_token}}" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{ \"plano_id\": 2 }"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/users/1/plan",
+              "host": ["{{base_url}}"],
+              "path": ["api", "users", "1", "plan"]
+            }
+          }
+        },
+        {
+          "name": "Resetar Senha (admin)",
+          "request": {
+            "method": "PUT",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" },
+              { "key": "Authorization", "value": "Bearer {{admin_token}}" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{ \"nova_senha\": \"123456\" }"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/users/1/reset-password",
+              "host": ["{{base_url}}"],
+              "path": ["api", "users", "1", "reset-password"]
+            }
+          }
+        },
+        {
+          "name": "Deletar Usuario (admin)",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{admin_token}}" }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/users/1",
+              "host": ["{{base_url}}"],
+              "path": ["api", "users", "1"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Planos",
+      "item": [
+        {
+          "name": "Listar Planos",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{base_url}}/api/plans?page=1&limit=10",
+              "host": ["{{base_url}}"],
+              "path": ["api", "plans"],
+              "query": [
+                { "key": "page", "value": "1" },
+                { "key": "limit", "value": "10" }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Criar Plano (admin)",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" },
+              { "key": "Authorization", "value": "Bearer {{admin_token}}" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{ \"nome\": \"Plano 100MB\", \"velocidade\": \"100MB\", \"preco\": 99.9, \"descricao\": \"Internet rápida\" }"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/plans",
+              "host": ["{{base_url}}"],
+              "path": ["api", "plans"]
+            }
+          }
+        },
+        {
+          "name": "Editar Plano (admin)",
+          "request": {
+            "method": "PUT",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" },
+              { "key": "Authorization", "value": "Bearer {{admin_token}}" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{ \"nome\": \"Plano Atualizado\", \"ativo\": 1 }"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/plans/1",
+              "host": ["{{base_url}}"],
+              "path": ["api", "plans", "1"]
+            }
+          }
+        },
+        {
+          "name": "Deletar Plano (admin)",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{admin_token}}" }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/plans/1",
+              "host": ["{{base_url}}"],
+              "path": ["api", "plans", "1"]
+            }
+          }
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Admin — Usuários</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,400&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../../css/style.css" />
+  <link rel="stylesheet" href="../../css/admin.css" />
+</head>
+<body>
+  <div class="admin-layout">
+    <nav class="admin-nav">
+      <h2>Conecta.Net</h2>
+      <a href="usuarios.html" class="ativo">Usuários</a>
+      <a href="planos.html">Planos</a>
+      <a href="#" class="sair" onclick="sair()">↩ Sair</a>
+    </nav>
+    <main class="admin-main">
+      <h2>Usuários Cadastrados</h2>
+
+      <div class="filtros">
+        <input type="text" id="filtroCpf"  placeholder="Filtrar por CPF" />
+        <input type="text" id="filtroNome" placeholder="Filtrar por nome" />
+        <button onclick="carregarUsuarios(1)">Buscar</button>
+      </div>
+
+      <div class="card grande">
+        <table class="admin-table" id="tabelaUsuarios">
+          <thead>
+            <tr><th>Nome</th><th>CPF</th><th>Cidade</th><th>Plano</th><th>Ações</th></tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+        <div id="paginacao" class="paginacao"></div>
+      </div>
+
+      <!-- Modal Editar Usuário -->
+      <div id="modalEditar" class="modal" style="display:none">
+        <div class="modal-content">
+          <h3>Editar Usuário</h3>
+          <input type="hidden" id="editId" />
+
+          <div class="modal-grid">
+            <div class="coluna-dupla">
+              <label>Nome completo</label>
+              <input type="text" id="editNome" />
+            </div>
+            <div>
+              <label>Telefone</label>
+              <input type="text" id="editTelefone" placeholder="(62) 99999-0000" />
+            </div>
+            <div>
+              <label>Cidade</label>
+              <input type="text" id="editCidade" placeholder="Goiânia" />
+            </div>
+            <div>
+              <label>Setor / Bairro</label>
+              <input type="text" id="editSetor" placeholder="Setor Bueno" />
+            </div>
+            <div>
+              <label>CEP</label>
+              <input type="text" id="editCep" placeholder="74000-000" />
+            </div>
+            <div class="coluna-dupla">
+              <label>Plano contratado</label>
+              <select id="editPlanoId"></select>
+            </div>
+          </div>
+
+          <div class="modal-footer">
+            <button class="btn-secundario" onclick="fecharModal()">Cancelar</button>
+            <button onclick="salvarEdicao()">Salvar alterações</button>
+          </div>
+
+          <details class="reset-senha-section">
+            <summary>Resetar senha</summary>
+            <input type="password" id="novaSenha" placeholder="Nova senha" />
+            <div class="modal-footer" style="margin-top:12px">
+              <button onclick="resetarSenha()">Redefinir senha</button>
+            </div>
+          </details>
+        </div>
+      </div>
+    </main>
+  </div>
+  <script src="../../js/auth.js"></script>
+  <script src="../../js/admin/usuarios.js"></script>
+</body>
+</html>
